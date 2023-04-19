@@ -13,7 +13,7 @@ export default function App() {
         <p>SUA VEZ</p>
         <Switch>
           <Route exact path="/" component={ Login } />
-          <Route path="/Config" component={ Config } />
+          <Route path="/config" component={ Config } />
         </Switch>
       </header>
     </div>

@@ -18,7 +18,7 @@ describe('Tela de Login', () => {
     const render = renderWithRouterAndRedux(<App />);
     history = render.history;
     inputName = screen.getByTestId('input-player-name');
-    inputEmail = screen.getByTestId('password-input');
+    inputEmail = screen.getByTestId('input-gravatar-email');
     buttonPlay = screen.getByTestId('btn-play');
   });
 
