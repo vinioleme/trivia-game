@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { getRequest } from '../services/triviaApi';
 
 class Login extends Component {
   state = {
@@ -16,6 +18,14 @@ class Login extends Component {
   validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
+  };
+
+  handleClick = async (event) => {
+    const { history } = this.props;
+    event.preventDefault();
+    const getToken = await getRequest();
+    await localStorage.setItem('token', getToken.token);
+    history.push('/game');
   };
 
   render() {
@@ -46,11 +56,23 @@ class Login extends Component {
               placeholder="Digite seu e-mail"
             />
           </label>
-          <button data-testid="btn-play" disabled={ !isValid }>Play</button>
+          <button
+            data-testid="btn-play"
+            disabled={ !isValid }
+            onClick={ this.handleClick }
+          >
+            Play
+
+          </button>
         </form>
       </div>
     );
   }
 }
 
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 export default Login;
