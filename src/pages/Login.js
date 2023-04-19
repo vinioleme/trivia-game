@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { getRequest } from '../services/triviaApi';
 
 class Login extends Component {
   state = {
@@ -17,6 +19,14 @@ class Login extends Component {
   validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
+  };
+
+  handleClick = async (event) => {
+    const { history } = this.props;
+    event.preventDefault();
+    const getToken = await getRequest();
+    await localStorage.setItem('token', getToken.token);
+    history.push('/game');
   };
 
   render() {
@@ -47,8 +57,6 @@ class Login extends Component {
               placeholder="Digite seu e-mail"
             />
           </label>
-          <button data-testid="btn-play" disabled={ !isValid }>Play</button>
-          <br />
           <Link to="/Config">
             <button
               data-testid="btn-settings"
@@ -56,10 +64,23 @@ class Login extends Component {
               Config
             </button>
           </Link>
+          <button
+            data-testid="btn-play"
+            disabled={ !isValid }
+            onClick={ this.handleClick }
+          >
+            Play
+
+          </button>
         </form>
       </div>
     );
   }
 }
 
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 export default Login;
