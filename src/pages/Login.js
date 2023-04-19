@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getRequest } from '../services/triviaApi';
 
@@ -56,6 +57,13 @@ class Login extends Component {
               placeholder="Digite seu e-mail"
             />
           </label>
+          <Link to="/Config">
+            <button
+              data-testid="btn-settings"
+            >
+              Config
+            </button>
+          </Link>
           <button
             data-testid="btn-play"
             disabled={ !isValid }

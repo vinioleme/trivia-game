@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import logo from './trivia.png';
 import './App.css';
+import Config from './pages/Config';
 import Login from './pages/Login';
+import logo from './trivia.png';
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <p>SUA VEZ</p>
         <Switch>
           <Route exact path="/" component={ Login } />
+          <Route path="/Config" component={ Config } />
         </Switch>
       </header>
     </div>
