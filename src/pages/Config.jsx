@@ -4,9 +4,9 @@ class Config extends React.Component {
   render() {
     return (
       <h1
-        data-testid="setting-title"
+        data-testid="settings-title"
       >
-        Configuracoes
+        Configurações
       </h1>
     );
   }
