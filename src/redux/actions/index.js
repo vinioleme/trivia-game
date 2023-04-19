@@ -1,7 +1,6 @@
 export const PLAYER_NAME_EMAIL = 'PLAYER_NAME_EMAIL';
 
-export const playerInfos = (gravatarEmail, name) => ({
+export const playerInfos = (payload) => ({
   type: PLAYER_NAME_EMAIL,
-  payload: gravatarEmail,
-  name,
+  payload,
 });

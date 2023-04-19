@@ -10,7 +10,7 @@ const playerLogin = (state = INITIAL_STATE, action) => {
   case PLAYER_NAME_EMAIL:
     return {
       ...state,
-      gravatarEmail: action.payload.gravatarEmail,
+      gravatarEmail: action.payload.email,
       name: action.payload.name,
     };
   default:

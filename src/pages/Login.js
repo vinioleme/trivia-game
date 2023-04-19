@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { getRequest } from '../services/triviaApi';
+import { playerInfos } from '../redux/actions';
 
 class Login extends Component {
   state = {
-    nome: '',
+    name: '',
     email: '',
   };
 
@@ -21,8 +23,9 @@ class Login extends Component {
   };
 
   handleClick = async (event) => {
-    const { history } = this.props;
     event.preventDefault();
+    const { history, dispatch } = this.props;
+    dispatch(playerInfos(this.state));
     const getToken = await getRequest();
     await localStorage.setItem('token', getToken.token);
     history.push('/game');
@@ -30,27 +33,26 @@ class Login extends Component {
 
   render() {
     const { history } = this.props;
-    const { nome, email } = this.state;
-    const isValid = this.validateEmail(email) && nome.length > 0;
+    const { name, email } = this.state;
+    const isValid = this.validateEmail(email) && name.length > 0;
 
     return (
       <div>
         <form action="">
-          <label htmlFor="nome">
+          <label htmlFor="name">
             <input
               type="text"
               data-testid="input-player-name"
-              name="nome"
-              value={ nome }
+              name="name"
+              value={ name }
               onChange={ this.onInputChange }
-              placeholder="Digite seu nome"
+              placeholder="Digite seu name"
             />
           </label>
           <label htmlFor="email">
             <input
               type="email"
               name="email"
-              id=""
               data-testid="input-gravatar-email"
               value={ email }
               onChange={ this.onInputChange }
@@ -77,9 +79,15 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  gravatarEmail: state.player.gravatarEmail,
+  name: state.player.name,
+});
+
 Login.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
-export default Login;
+export default connect(mapStateToProps)(Login);
